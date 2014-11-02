@@ -53,20 +53,31 @@ public class GeneReader {
 	}
 	return s;
     }
+
+    public void printLetters() {
+	for (Gene g : genes) {
+	    g.printTriplets();
+	    System.out.println("\n");
+	}
+    }
     
     public class Gene {
 	private String name;
 	private String body;
 	private HashMap<String, Integer> sequence;
 
-	/**
-	   Initialize hashmap, then for each triletters do .put(Key, Value+1);
-	*/
-
 	public Gene(String n, String b) {
 	    name=n;
 	    body=b;
-	    sequence=new HashMap();
+	    sequence=new HashMap<String, Integer>();
+
+	    String s2 = body;
+	    while (s2.length() >=3) { 
+		String key = s2.substring(0,3);
+		// System.out.println("Current KEY: "+key);
+		addCodon(key);
+		s2=s2.substring(3);
+	    }
 	}	
 
 	public String getName() {
@@ -77,28 +88,33 @@ public class GeneReader {
 	    return body;
 	}
 
-	public Map<String, Integer> getCodons() {
+	public HashMap<String, Integer> getCodons() {
 	    return sequence;
 	}
 
 	public void addCodon(String key) {
-	 
-	    if (key.length() != 3)
+	    if (key.length() != 3) {
 		System.out.println("Wrong Codon length!");
-	    else {
-		int value = -10;
-		value=sequence.get(key);
-		if (value==-10)
+		return;
+	    } else {
+		if (sequence.get(key)==null) 
 		    sequence.put(key, 1);
 		else
-		    sequence.put(key, value+1);
+		    sequence.put(key, sequence.get(key)+1);
 	    }
 	}
 	
 	public String toString() {
 	    return (name+"\n"+body);
 	}
-    
-    }
 
+	public void printTriplets() {
+	    for (Map.Entry<String, Integer> entry : sequence.entrySet()) {
+		String key = entry.getKey().toString();
+		Integer value = entry.getValue();
+		System.out.println("key " + key + " value " + value );
+	    }
+	    System.out.println("Total triplets: "+sequence.size());
+	}
+    }
 }

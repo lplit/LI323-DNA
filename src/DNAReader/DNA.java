@@ -19,8 +19,8 @@ public class DNA {
 	Reader[] readers = {r1, r2, r3};
 
 	GeneReader gr = new GeneReader("NC_018520_genes.fna");
-	System.out.println(gr.toString());
-
+	gr.printLetters();
+	/*
 	System.out.println("BLABLA Pre FOR loop");
 
 	for (String s : tester) {
@@ -28,7 +28,7 @@ public class DNA {
 	    g.guessGenome();
 	    System.out.println("\n\n");
 	}
-
+	*/
 	return;
     }
 
