@@ -1,0 +1,83 @@
+package DNAReader;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class GeneReader {
+
+    ArrayList<Gene> genes;
+
+    public GeneReader(String file) {
+	// Reads gene by gene from file
+	try {
+	    
+	    genes = new ArrayList<Gene>();
+	    BufferedReader br = new BufferedReader(new FileReader("./Data/"+file));
+	    String sCurrentLine;
+	    String tmp = br.readLine();
+	    String tmp_name="";
+	    String tmp_body="";
+
+	    while ((sCurrentLine = br.readLine()) != null) {
+		char[] chr = sCurrentLine.toCharArray();
+		
+		// Reads the name
+		if (chr[0]=='>') {
+		    tmp_name = sCurrentLine;
+		} else {
+		    tmp_body+=sCurrentLine;
+		}
+		Gene g = new Gene(tmp_name, tmp_body);
+		genes.add(g);
+		tmp_body="";
+	    }
+	} catch (IOException e) {
+	    System.out.println("File read error!\n");
+	    e.printStackTrace();
+	}
+    }
+    
+    public ArrayList<Gene> getGenes() {
+	return genes;
+    }
+    
+    public String toString() {
+	String s = "";
+	for (Gene g : genes) {
+	    s+=g.toString();
+	}
+	return s;
+    }
+    
+    public class Gene {
+	private String name;
+	private String body;
+
+
+	/**
+	   Initialize hashmap, then for each triletters do .put(Key, Value+1);
+	*/
+
+	
+	public Gene(String n, String b) {
+	    name=n;
+	    body=b;
+	}	
+
+	public String getName() {
+	    return name;
+	}
+	
+	public String getBody() {
+	    return body;
+	}
+
+	public String toString() {
+	    return (name+"\n"+body);
+	}
+    
+    }
+
+}

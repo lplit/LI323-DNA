@@ -3,7 +3,7 @@ JAR = stat.DNA-LeGoff-Rudek.jar
 
 run : all 
 	@echo "Running..."
-	@java -cp ./bin DNAReader.Reader
+	@java -cp ./bin DNAReader.DNA
 
 all : $(SRC)
 	@echo "Compiling..."

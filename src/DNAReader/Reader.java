@@ -4,12 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-/**
- * This class should be instanced for each language to be analysed. 
- * 
- *
- */
-
 public class Reader {
     
     private final int nbLttrs=5;
@@ -19,23 +13,8 @@ public class Reader {
     private int totalLetters;
     private String lang;
 
-    public static void main(String[] args) {
-
-	Reader r1 = new Reader("NC_017626.fna");
-	r1.printLettersStats();
-
-	Reader r2 = new Reader("NC_018520.fna");
-	r2.printLettersStats();
-
-	Reader r3 = new Reader("NC_019896.fna");
-	r3.printLettersStats();
-
-	System.out.println("LAAAAAAAAAAAAAAAAAAAAAAAAAAALW00000000000000T!!!!!!!111111oneoneone");
-	return;
-    }
-
     /**
-     * By-default constructor method, initializes the fields.
+     * By default constructor method, initializes the fields.
      */
     public Reader() { 
 	letterOccurences = new int[nbLttrs];
@@ -43,17 +22,18 @@ public class Reader {
 	totalLetters = 0;
 	lang="";
     }
-    
+
     /**
      * Constructor, reads file, allocates the class variables etc etc.
-     * @param filename Name of the file to read WITH extention (ex: english.txt). Attention, file MUST exist within /Data. Throws IOException if file not found.
+     * @param filename Name of the file to read WITH extention (ex: english.txt). 
+     * Attention, file MUST exist within /Data. Throws IOException if file not found.
      */
     public Reader(String filename) {
 	this(); // Allocation
 	try (BufferedReader br = new BufferedReader(new FileReader("./Data/"+filename))) {
 		String sCurrentLine;
-		lang = br.readLine(); // Stock 'language'
-		while ((sCurrentLine = br.readLine()) != null) { // Stock letterOccurences
+		lang = br.readLine(); // Stock 'language' - lol...
+		while ((sCurrentLine = br.readLine()) != null) { // Reading file line by line
 		    char[] chr = sCurrentLine.toCharArray();
 		    for (int i=0 ; i < chr.length ; i++) {
 			switch (chr[i]) {
@@ -69,18 +49,14 @@ public class Reader {
 			case 'T' : 
 			    letterOccurences[3]++;
 			    break;
-			case 'N' : 
+			default : 
 			    letterOccurences[4]++;
 			    break; 
-			default : 
-			    System.out.println("[Reader] Unknown character!");
-			    break;
 			}
-			totalLetters++; // Counts letters 
+			totalLetters++;
 		    }
 		}
-		
-		percOf=percCalc(letterOccurences); // Stock
+		percOf=percCalc(letterOccurences); 
 	    } catch (IOException e) {
 	    System.out.println("File read error!\n");
 	    e.printStackTrace();
@@ -103,6 +79,7 @@ public class Reader {
 	}
 	return ret;
     }
+
 
     /* GETTERS */
 
@@ -130,30 +107,28 @@ public class Reader {
 	return totalLetters;
     }
 
-
-    /** Single letter stat getter
-     * @param letter Letter to check the stat of
-     * @return Returns % for a @param letter
-     */
-    public double getLetterPerc(char a) {
-	switch (a) {
-	case 'A' : 
-	    return letterOccurences[0];
-	case 'C' :
-	    return letterOccurences[1];
-	case 'G' :
-	    return letterOccurences[2];
-	case 'T' : 
-	    return letterOccurences[3];
-	case 'N' : 
-	    return letterOccurences[4];
-	default : 
-	    System.out.println("[Reader] Unknown character!");
-	    return 0.0;
-	}
+    public String getLang() {
+	return lang;
     }
     
-    
+    public double getLetterPerc(char c) {
+	switch (c) {
+	case 'A' :
+	    return letterOccurences[0];
+
+	case 'C' : 
+	    return letterOccurences[1];
+
+	case 'G' :
+	    return letterOccurences[2];
+
+	case 'T' :
+	    return letterOccurences[3];
+	default : 
+	    return letterOccurences[4];
+	}
+    }
+
     /* STRING/VISUAL OUTPUT */
 
     /**
@@ -162,14 +137,11 @@ public class Reader {
     @Override public String toString() { 
 	String s = "";
 	for (int i=0 ; i< letterOccurences.length ; i++) {
-	    // Simplicity handles
 	    int curr = letterOccurences[i];
-	    char currChar = sequenceLetters[i];
-	    double pourc= percOf[i];
-
-	    s += (currChar + "\t" + curr + "\t" + pourc + "%\n");
+	    double pourc= ((((double)curr)/totalLetters)*100);
+	    s += (((char) (i+97)) + " " + curr + "\t" + pourc + "%\n");
 	}
-	return s+=("Total:\t"+totalLetters+" for "+lang+"\n");
+	return s;
     }
 
     /**
@@ -181,8 +153,7 @@ public class Reader {
 	    int curr = letterOccurences[i];
 	    char currChar = sequenceLetters[i];
 	    double pourc= percOf[i];
-
-	    System.out.println(currChar +"\t#"+curr+"\t"+(pourc*100)+"%");
+	    System.out.println(currChar + "\t#"+curr+"\t" + (pourc*100) + "%");
 	}
 	System.out.println("Total:\t"+totalLetters+" for "+lang+"\n");
     }
