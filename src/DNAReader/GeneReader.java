@@ -12,10 +12,7 @@ public class GeneReader {
     ArrayList<Gene> genes;
 
     public GeneReader(String file) {
-	// Reads gene by gene from file and creates hashmap with 3 letter occurences
-	
 	try {
-    
 	    genes = new ArrayList<Gene>();
 	    BufferedReader br = new BufferedReader(new FileReader("./Data/"+file));
 	    String sCurrentLine;
@@ -26,14 +23,13 @@ public class GeneReader {
 	    while ((sCurrentLine = br.readLine()) != null) {
 		char[] chr = sCurrentLine.toCharArray();
 		
-		// Reads the name
-		if (chr[0]=='>') {
+		if (chr[0]=='>') { // Reads the name
 		    tmp_name = sCurrentLine;
 		} else { // If not name, concatenate line
 		    tmp_body+=sCurrentLine;
 		}
 		Gene g = new Gene(tmp_name, tmp_body);
-		genes.add(g); // 
+		genes.add(g); // Add current genome to the list
 		tmp_body=""; // Reset to empty for next iteration
 	    }
 	} catch (IOException e) {
@@ -72,13 +68,12 @@ public class GeneReader {
 	    sequence=new HashMap<String, Integer>();
 
 	    String s2 = body;
-	    while (s2.length() >=3) { 
+	    while (s2.length() >=3) {
 		String key = s2.substring(0,3);
-		// System.out.println("Current KEY: "+key);
 		addCodon(key);
 		s2=s2.substring(3);
 	    }
-	}	
+	}
 
 	public String getName() {
 	    return name;
@@ -112,7 +107,7 @@ public class GeneReader {
 	    for (Map.Entry<String, Integer> entry : sequence.entrySet()) {
 		String key = entry.getKey().toString();
 		Integer value = entry.getValue();
-		System.out.println("key " + key + " value " + value );
+		System.out.println("---"+key + "\t" + value);
 	    }
 	    System.out.println("Total triplets: "+sequence.size());
 	}
