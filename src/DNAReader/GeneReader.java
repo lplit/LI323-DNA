@@ -139,7 +139,7 @@ public class GeneReader {
 		String key = entry.getKey().toString();
 		Integer value = entry.getValue();
 		Double perc = percents.get(key);
-		System.out.println("---"+key + "\t" + value + "\t"+perc+"%");
+		System.out.println("---"+key + "\t" + value + "\t"+perc);
 	    }
 	    System.out.println("Total triplets: "+sequence.size());
 	}
