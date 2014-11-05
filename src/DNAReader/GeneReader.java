@@ -27,8 +27,7 @@ public class GeneReader {
 		    tmp_name = sCurrentLine;
 		    sCurrentLine = br.readLine(); // To get to the body
 		    tmp_body+=sCurrentLine;
-		} else { // If not name, concatenate line
-		    tmp_body+=sCurrentLine;
+		} else { // If not name skip to next line
 		    continue;
 		}
 		Gene g = new Gene(tmp_name, tmp_body);
@@ -64,11 +63,16 @@ public class GeneReader {
 	private String name;
 	private String body;
 	private HashMap<String, Integer> sequence;
-	
+	private HashMap<String, Double> percents;
+	private int total;
+
 	public Gene(String n, String b) {
 	    name=n;
 	    body=b;
+	    total=0;
 	    sequence=new HashMap<String, Integer>();
+	    percents = new HashMap<String, Double>();
+
 
 	    String s2 = body;
 	    while (s2.length() >=3) {
@@ -78,8 +82,10 @@ public class GeneReader {
 		    continue;
 		}
 		addCodon(key);
+		total++;
 		s2=s2.substring(3);
 	    }
+	    calcPercs();
 	}
 
 	public String getName() {
@@ -90,11 +96,19 @@ public class GeneReader {
 	    return body;
 	}
 
+	public HashMap<String, Integer> getSequence() { 
+	    return sequence;
+	}
+
+	public HashMap<String, Double> getPercs() { 
+	    return percents;
+	}
+
 	public HashMap<String, Integer> getCodons() {
 	    return sequence;
 	}
 
-	public void addCodon(String key) {
+	private void addCodon(String key) {
 	    if (key.length() != 3) {
 		System.out.println("Wrong Codon length!");
 		return;
@@ -103,6 +117,16 @@ public class GeneReader {
 		    sequence.put(key, 1);
 		else
 		    sequence.put(key, sequence.get(key)+1);
+	    }
+	}
+
+
+	private void calcPercs() { // Populates the 'percents' parameter.
+	    for (Map.Entry<String, Integer> entry : sequence.entrySet()) {
+		String n = entry.getKey();
+		Integer i = entry.getValue();
+		Double d = ((double)i)/total;
+		percents.put(n, d);
 	    }
 	}
 	
@@ -114,7 +138,8 @@ public class GeneReader {
 	    for (Map.Entry<String, Integer> entry : sequence.entrySet()) {
 		String key = entry.getKey().toString();
 		Integer value = entry.getValue();
-		System.out.println("---"+key + "\t" + value);
+		Double perc = percents.get(key);
+		System.out.println("---"+key + "\t" + value + "\t"+perc+"%");
 	    }
 	    System.out.println("Total triplets: "+sequence.size());
 	}
