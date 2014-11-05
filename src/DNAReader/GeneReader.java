@@ -17,20 +17,23 @@ public class GeneReader {
 	    BufferedReader br = new BufferedReader(new FileReader("./Data/"+file));
 	    String sCurrentLine;
 	    String tmp = br.readLine();
-	    String tmp_name="";
-	    String tmp_body="";
 
-	    while ((sCurrentLine = br.readLine()) != null) {
+
+	    while ((sCurrentLine = br.readLine()) != null) { // [>name \n body]
 		char[] chr = sCurrentLine.toCharArray();
-		
+		String tmp_name="";
+		String tmp_body="";
 		if (chr[0]=='>') { // Reads the name
 		    tmp_name = sCurrentLine;
+		    sCurrentLine = br.readLine(); // To get to the body
+		    tmp_body+=sCurrentLine;
 		} else { // If not name, concatenate line
 		    tmp_body+=sCurrentLine;
+		    continue;
 		}
 		Gene g = new Gene(tmp_name, tmp_body);
 		genes.add(g); // Add current genome to the list
-		tmp_body=""; // Reset to empty for next iteration
+
 	    }
 	} catch (IOException e) {
 	    System.out.println("File read error!\n");
@@ -61,7 +64,7 @@ public class GeneReader {
 	private String name;
 	private String body;
 	private HashMap<String, Integer> sequence;
-
+	
 	public Gene(String n, String b) {
 	    name=n;
 	    body=b;
@@ -70,6 +73,10 @@ public class GeneReader {
 	    String s2 = body;
 	    while (s2.length() >=3) {
 		String key = s2.substring(0,3);
+		if ( key.equals("UAA") || key.equals("UAG") || key.equals("UGA") ) {
+		    System.out.println("Stop codon encountered, skipping.");
+		    continue;
+		}
 		addCodon(key);
 		s2=s2.substring(3);
 	    }
