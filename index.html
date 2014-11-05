@@ -32,6 +32,43 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h3>
+
+
+2.1.1 Nous avons ici effectuÈ un calcul simple afin d'avoir un modele pour chaque gÈnome : nombre d'occurences de la lettre donnÈ ( A C G ou T ici ) / nombre de lettre total
+
+2.1.2 Nous avons rÈutiliser notre fonction afin de detecter le language d'un mot ici mais pour un segment adn via la somme des logs des differentes probas a laquelle nous prennons le meilleur score.
+( a vÈrif )
+
+
+2.1.3 On pourrait essayer de construire un modele de genomes basÈs sur des binomes de lettres ,
+voir des trinomes ( ce qui sera effectuÈ plus bas ) afin d'obtenir plus de spÈcification.
+Nous pouvons aussi essayer de prendre des tailles tres diffÈrentes de gÈnomes afin d'obtenir des
+modeles bien diffÈrents. On peut Ègalement essayer de considÈrer que la proba qu'a une lettre de tomber deux fois de suite par exemple
+dans le modele de gÈnome ne sera pas la meme que la proba qu'on les autres lettres de tomber.
+
+
+
+2.2.1 Nous avons ici pris tout les modeles possibles pour des codons ( exceptÈ les codons stop ) que nous avons stockÈs dans un tableau de hashage
+Enfin nous avons comptÈ par groupe de 3 lettres ces diffÈrentes sÈquences de genes en passant a la suivant si jamais un codon stop Ètait rencontrÈ.
+Puis nous avons effectuÈ le meme calcul que prÈcedamment : nombre d'occurences du codon(1 sur les 61 possibles ) / nombre de codons totaux comptÈs.
+
+2.2.2
+Nous allons ici rÈutiliser ce que nous avons vu au premier projet.
+Il nous faut ici effectuer la somme des logs sur la sÈquence donnÈ sachant le gene ( ici une ligne dans le fichier FASTA sur les genes )
+ainsi que sur la sÈquencÈ donnÈ mais sachant le gÈnome , c'est a dire en utilisant le modele de la premiere question auparavant sur l'intÈgralitÈ du fichier de genes.
+Enfin nous divisons le tout afin d'obtenir un score.
+Nous effectuons cela 3 fois : en effet au cas ou le nombres de lettres de la sÈquence donnÈ ne serait pas un multiple de trois , il nous faut effectuer ce calcul sur la meme sÈquence mais 
+dÈcalÈ de un caractere et de deux caractere
+Nous prendrons le meilleur score entres les meilleurs scores dÈja obtenus sur chaque calcul individuellement.
+
+2.2.3 liÈ a la 2.2.2
+
+2.2.4 dafuq ?
+
+2.2.5 dafuq ?
+
+
+
 <a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
 
 <p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
