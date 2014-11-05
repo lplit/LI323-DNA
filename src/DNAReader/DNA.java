@@ -20,6 +20,13 @@ public class DNA {
 
 	GeneReader gr = new GeneReader("NC_018520_genes.fna");
 	gr.printLetters();
+
+	GeneReader gr2 = new GeneReader("NC_017626_genes.fna");
+	gr2.printLetters();
+
+	GeneReader gr3 = new GeneReader("NC_019896_genes.fna");
+	gr3.printLetters();
+	
 	/*
 	System.out.println("BLABLA Pre FOR loop");
 
