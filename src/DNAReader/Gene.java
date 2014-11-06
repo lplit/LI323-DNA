@@ -9,24 +9,40 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Gene class
+ */
 public class Gene {
     private String name;
     private HashMap<String, Integer> sequence;
     private HashMap<String, Double> percents;
     private int total;
 
+    /**
+     * Constructor method
+     */
     public Gene() { 
 	name="";
 	sequence = new HashMap<String, Integer>();
 	percents = new HashMap<String, Double>();
 	total=0;
     }
-
+    
+    /**
+     * Constructor method 
+     * @param n Name
+     */
     public Gene(String n) {
 	this();
 	name=n;
     }
 
+
+    /**
+     * Constructor
+     * @param n name
+     * @param body body
+     */
     public Gene(String n, String body) {
 	name=n;
 	total=0;
@@ -45,19 +61,36 @@ public class Gene {
 	}
 	calcPercs();
     }
-
+    
+    /**
+     * Name field getter
+     * @return Name field
+     */
     public String getName() {
 	return name;
     }
 
+    /**
+     * Sequence getter
+     * @return HashMap<String, Integer> sequence
+     */
     public HashMap<String, Integer> getSequence() { 
 	return sequence;
     }
-
+    
+    /**
+     * Percents getter
+     * @return HashMap<String, Double> percents
+     */
     public HashMap<String, Double> getPercs() { 
 	return percents;
     }
 
+    /**
+     * Calculates sum of logs for eeach codon
+     * @param s Sequence to analyse
+     * @return double score
+     */
     public double getLogSum(String s) {
 	if (s.length()<3) {
 	    System.out.println("----[getLogSum] Wrong length!\n");
@@ -81,7 +114,10 @@ public class Gene {
 	}
     }
      
-
+    /**
+     * Adds a codon to the structure
+     * @param key A three letter codon to be added
+     */
     public void addCodon(String key) {
 	if (key.length() != 3) {
 	    System.out.println("----Wrong Codon length!");
@@ -95,6 +131,10 @@ public class Gene {
 	}
     }
 
+    
+    /**
+     * Populates 'percents'
+     */
     public void calcPercs() { // Populates the 'percents' parameter.
 	for (Map.Entry<String, Integer> entry : sequence.entrySet()) {
 	    String n = entry.getKey();
@@ -116,10 +156,14 @@ public class Gene {
 	return ret;
     }
 
+    /**
+     * Saves file analysis to a separate file
+     * @param filename Name of file to analyse, will be saved as "analysis_<<filename>>"
+     */
     public void storeTripletsStats(String filename) {
 	try {
 	String ret = "";
-	PrintWriter writer = new PrintWriter("./Data/analyse_"+filename, "UTF-8");
+	PrintWriter writer = new PrintWriter("./Data/analysis_"+filename, "UTF-8");
 	
 	for (Map.Entry<String, Integer> entry : sequence.entrySet()) {
 	    String key = entry.getKey().toString();
