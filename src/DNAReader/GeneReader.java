@@ -16,9 +16,7 @@ public class GeneReader {
 	    genes = new ArrayList<Gene>();
 	    BufferedReader br = new BufferedReader(new FileReader("./Data/"+file));
 	    String sCurrentLine;
-	    String tmp = br.readLine();
-
-
+	    
 	    while ((sCurrentLine = br.readLine()) != null) { // [>name \n body]
 		char[] chr = sCurrentLine.toCharArray();
 		String tmp_name="";
@@ -27,12 +25,11 @@ public class GeneReader {
 		    tmp_name = sCurrentLine;
 		    sCurrentLine = br.readLine(); // To get to the body
 		    tmp_body+=sCurrentLine;
+		    Gene g = new Gene(tmp_name, tmp_body);
+		    genes.add(g); // Add current genome to the list
 		} else { // If not name skip to next line
 		    continue;
 		}
-		Gene g = new Gene(tmp_name, tmp_body);
-		genes.add(g); // Add current genome to the list
-
 	    }
 	} catch (IOException e) {
 	    System.out.println("File read error!\n");
@@ -44,17 +41,41 @@ public class GeneReader {
 	return genes;
     }
 
-    public double getBestGene(String s) {
+
+    public void getBestGeneFile(String filename) {
+	try {
+	    BufferedReader br = new BufferedReader(new FileReader("./Data/"+file));
+	    String sCurrentLine;
+	    
+	    //Get the line and the name
+	    String tmp = br.readLine();
+	    // Calc highest score for each line
+	    if (chr[0]=='>') { // Reads the name then body
+		tmp_name = sCurrentLine;
+		sCurrentLine = br.readLine(); // To get to the body
+		Gene g = getBestGene(sCurrentLine); // Best guess Gene
+		System.out.println(
+	    } else { // If not name skip to next line
+		continue;
+	    }
+	    return g;
+	}
+    }
+
+    public Gene getBestGene(String s) {
 	double best=0;
 	String bestName="";
+	Gene bg=null;
 	for (Gene g : genes) {
 	    double tmp = g.getLogSum(s);
-	    if (tmp > best)
+	    if (tmp > best) {
 		best = tmp;
-	    bestName= g.getName();
+		bg = g;
+		bestName= g.getName();
+	    }
 	}
 	System.out.println("Best score ("+best+"):\t" + bestName);
-	return best;
+	return bg;
     }
     
     public String toString() {

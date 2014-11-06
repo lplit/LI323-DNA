@@ -23,7 +23,7 @@ public class DNA {
 
 	GeneReader gr2 = new GeneReader("NC_017626_genes.fna");
 	gr2.printLetters();
-
+	
 	GeneReader gr3 = new GeneReader("NC_019896_genes.fna");
 	gr3.printLetters();
 	
