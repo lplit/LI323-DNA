@@ -43,6 +43,19 @@ public class GeneReader {
     public ArrayList<Gene> getGenes() {
 	return genes;
     }
+
+    public double getBestGene(String s) {
+	double best=0;
+	String bestName="";
+	for (Gene g : genes) {
+	    double tmp = g.getLogSum(s);
+	    if (tmp > best)
+		best = tmp;
+	    bestName= g.getName();
+	}
+	System.out.println("Best score ("+best+"):\t" + bestName);
+	return best;
+    }
     
     public String toString() {
 	String s = "";
@@ -78,7 +91,7 @@ public class GeneReader {
 	    while (s2.length() >=3) {
 		String key = s2.substring(0,3);
 		if ( key.equals("UAA") || key.equals("UAG") || key.equals("UGA") ) {
-		    System.out.println("Stop codon encountered, skipping.");
+		    System.out.println("-Stop codon encountered, skipping.");
 		    continue;
 		}
 		addCodon(key);
@@ -108,9 +121,27 @@ public class GeneReader {
 	    return sequence;
 	}
 
+	public double getLogSum(String s) {
+	    if (s.length()<3) {
+		System.out.println("----[getLogSum] Wrong length!\n");
+		return 0;
+	    } else {
+		double ret = 0.0;
+		String cpy = s;
+		String tmp;
+		while (cpy.length()>=3) {
+		    tmp = cpy.substring(0,3);
+		    double current = percents.get(tmp);
+		    ret += Math.log(current);
+		    cpy = cpy.substring(3);
+		}
+		return ret;
+	    }
+	}
+
 	private void addCodon(String key) {
 	    if (key.length() != 3) {
-		System.out.println("Wrong Codon length!");
+		System.out.println("----Wrong Codon length!");
 		return;
 	    } else {
 		if (sequence.get(key)==null) 
