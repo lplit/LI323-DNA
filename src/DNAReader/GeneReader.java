@@ -95,7 +95,7 @@ public class GeneReader {
 
     public void printLetters() {
 	for (Gene g : genes) {
-	    g.printTriplets();
+	    System.out.println(g);
 	    System.out.println("\n");
 	}
     }

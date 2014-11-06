@@ -11,22 +11,19 @@ import java.util.Map;
 
 public class Gene {
     private String name;
-    private String body;
     private HashMap<String, Integer> sequence;
     private HashMap<String, Double> percents;
     private int total;
 
     public Gene() { 
 	name="";
-	body="";
 	sequence = new HashMap<String, Integer>();
 	percents = new HashMap<String, Double>();
 	total=0;
     }
 
-    public Gene(String n, String b) {
+    public Gene(String n, String body) {
 	name=n;
-	body=b;
 	total=0;
 	sequence = new HashMap<String, Integer>();
 	percents = new HashMap<String, Double>();
@@ -46,10 +43,6 @@ public class Gene {
 
     public String getName() {
 	return name;
-    }
-	
-    public String getBody() {
-	return body;
     }
 
     public HashMap<String, Integer> getSequence() { 
@@ -114,18 +107,15 @@ public class Gene {
     }
 	
     public String toString() {
-	return (name+"\n"+body);
-    }
-
-
-    public void printTriplets() {
+	String ret ="";
 	for (Map.Entry<String, Integer> entry : sequence.entrySet()) {
 	    String key = entry.getKey().toString();
 	    Integer value = entry.getValue();
 	    Double perc = percents.get(key);
-	    System.out.println("---"+key + "\t" + value + "\t"+perc);
+	    ret+=("---"+key + "\t" + value + "\t"+perc+"\n");
 	}
-	System.out.println("Total triplets: "+sequence.size());
+	ret+=("Total triplets: "+sequence.size());
+	return ret;
     }
 
     public void storeTripletsStats(String filename) {

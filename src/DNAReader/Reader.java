@@ -69,7 +69,6 @@ public class Reader {
 	try (BufferedReader br = new BufferedReader(new FileReader("./Data/"+filename))) {
 		if (g==null) g=new Gene();
 		String sCurrentLine="";;
-		String tmp_body="";
 		String crp="";
 		String lan = br.readLine(); // Stock 'language' - lol...
 		System.out.println("Reading file... (this may take a moment. No, really)");
@@ -187,6 +186,6 @@ public class Reader {
 	    System.out.println(currChar + "\t#"+curr+"\t" + (pourc*100) + "%");
 	}
 	System.out.println("Total:\t"+totalLetters+" for "+lang+"\n\n");
-	this.g.printTriplets();
+	System.out.println(this.g);
     }
 }
