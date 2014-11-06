@@ -21,7 +21,7 @@ clean :
 	@rm -rf *~
 	@rm -rf ./src/*~
 	@echo "Removing .class files..."
-	@rm -rf ./bin/*.class
+	@rm -rf ./bin/DNAReader/*.class
 	@rm -rf $(JAR)
 	@echo "Removing JavaDoc..."
 	@rm -rf ./doc-private
