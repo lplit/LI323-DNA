@@ -2,6 +2,9 @@ package DNAReader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,15 +24,17 @@ public class Gene {
 	percents = new HashMap<String, Double>();
 
 	String s2 = body;
-	while (s2.length() >=3) {
-	    String key = s2.substring(0,3);
+	for (int i = 0 ; i<s2.length() ; i+=3 ) { //while (s2.length() >=3) {
+	    if (s2.length()%100000==0)
+		System.out.println("Left to analyse "+s2.length());
+	    String key = s2.substring(i,i+3);
 	    if ( key.equals("UAA") || key.equals("UAG") || key.equals("UGA") ) {
 		System.out.println("-Stop codon encountered, skipping.");
 		break;
 	    }
 	    addCodon(key);
 	    total++;
-	    s2=s2.substring(3);
+	    //	    s2=s2.substring(3);
 	}
 	calcPercs();
     }
@@ -116,5 +121,27 @@ public class Gene {
 	    System.out.println("---"+key + "\t" + value + "\t"+perc);
 	}
 	System.out.println("Total triplets: "+sequence.size());
+    }
+
+    public void storeTripletsStats(String filename) {
+	try {
+	String ret = "";
+	PrintWriter writer = new PrintWriter("./Data/analyse_"+filename, "UTF-8");
+	
+	for (Map.Entry<String, Integer> entry : sequence.entrySet()) {
+	    String key = entry.getKey().toString();
+	    Integer value = entry.getValue();
+	    Double perc = percents.get(key);
+	    writer.println(key +" "+value+" "+perc);
+	}
+	System.out.println("Total triplets: "+sequence.size());
+	writer.close();
+	} catch (FileNotFoundException e) {
+	    e.printStackTrace();
+	    System.out.println("---storeTripletsStats FAIL");
+	} catch (UnsupportedEncodingException e) {
+	    e.printStackTrace();
+	    System.out.println("---storeTripletsStats FAIL");
+	}
     }
 }

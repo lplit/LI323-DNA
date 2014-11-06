@@ -1,9 +1,6 @@
 package DNAReader;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
+import java.io.*;
 public class Reader {
     
     private final int nbLttrs=5;
@@ -12,6 +9,7 @@ public class Reader {
     private double[] percOf;
     private int totalLetters;
     private String lang;
+    private Gene g;
 
     /**
      * By default constructor method, initializes the fields.
@@ -32,6 +30,7 @@ public class Reader {
 	this(); // Allocation
 	try (BufferedReader br = new BufferedReader(new FileReader("./Data/"+filename))) {
 		String sCurrentLine;
+		String tmp_body="";
 		lang = br.readLine(); // Stock 'language' - lol...
 		while ((sCurrentLine = br.readLine()) != null) { // Reading file line by line
 		    char[] chr = sCurrentLine.toCharArray();
@@ -56,10 +55,35 @@ public class Reader {
 			totalLetters++;
 		    }
 		}
-		percOf=percCalc(letterOccurences); 
+		percOf=percCalc(letterOccurences);
+		System.out.println("Adding gene");
+		g = analyseFile(filename);
+		System.out.println("Added new gene");
 	    } catch (IOException e) {
 	    System.out.println("File read error!\n");
 	    e.printStackTrace();
+	}
+    }
+    
+    private Gene analyseFile(String filename) {
+	try (BufferedReader br = new BufferedReader(new FileReader("./Data/"+filename))) {
+		String sCurrentLine="";;
+		String tmp_body="";
+		String crp="";
+		String lan = br.readLine(); // Stock 'language' - lol...
+		while ((sCurrentLine = br.readLine()) != null) { // Reading file line by line
+		    crp+=sCurrentLine;
+		}
+		System.out.println("File read, analysing...");
+		g = new Gene(lan, crp);
+		g.storeTripletsStats(filename);
+		return g;
+	    } catch (IOException e) {
+	    System.out.println("File read error!\n");
+	    e.printStackTrace();
+	} finally {
+	    System.out.println("Done!");
+	    return g;
 	}
     }
 
