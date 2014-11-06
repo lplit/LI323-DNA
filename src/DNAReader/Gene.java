@@ -24,9 +24,7 @@ public class Gene {
 	percents = new HashMap<String, Double>();
 
 	String s2 = body;
-	for (int i = 0 ; i<s2.length() ; i+=3 ) { //while (s2.length() >=3) {
-	    if (s2.length()%100000==0)
-		System.out.println("Left to analyse "+s2.length());
+	for (int i = 0 ; i<s2.length() ; i+=3 ) {
 	    String key = s2.substring(i,i+3);
 	    if ( key.equals("UAA") || key.equals("UAG") || key.equals("UGA") ) {
 		System.out.println("-Stop codon encountered, skipping.");
@@ -34,7 +32,6 @@ public class Gene {
 	    }
 	    addCodon(key);
 	    total++;
-	    //	    s2=s2.substring(3);
 	}
 	calcPercs();
     }

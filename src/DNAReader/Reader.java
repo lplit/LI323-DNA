@@ -71,6 +71,7 @@ public class Reader {
 		String tmp_body="";
 		String crp="";
 		String lan = br.readLine(); // Stock 'language' - lol...
+		System.out.println("Reading file... (this may take a moment. No, really");
 		while ((sCurrentLine = br.readLine()) != null) { // Reading file line by line
 		    crp+=sCurrentLine;
 		}
