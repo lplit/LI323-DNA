@@ -33,15 +33,6 @@ public class DNA {
 	System.out.println("\n\nNC_019896_genes.fna");
 	gr3.getBestGeneFile("test_genome.fna");
 
-	/*
-	System.out.println("BLABLA Pre FOR loop");
-
-	for (String s : tester) {
-	    Guesser g = new Guesser(readers, s);
-	    g.guessGenome();
-	    System.out.println("\n\n");
-	}
-	*/
 	return;
     }
 

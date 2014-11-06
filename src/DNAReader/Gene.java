@@ -16,6 +16,14 @@ public class Gene {
     private HashMap<String, Double> percents;
     private int total;
 
+    public Gene() { 
+	name="";
+	body="";
+	sequence = new HashMap<String, Integer>();
+	percents = new HashMap<String, Double>();
+	total=0;
+    }
+
     public Gene(String n, String b) {
 	name=n;
 	body=b;
@@ -24,7 +32,7 @@ public class Gene {
 	percents = new HashMap<String, Double>();
 
 	String s2 = body;
-	for (int i = 0 ; i<s2.length() ; i+=3 ) {
+	for (int i = 0 ; i+3<s2.length() ; i+=3 ) {
 	    String key = s2.substring(i,i+3);
 	    if ( key.equals("UAA") || key.equals("UAG") || key.equals("UGA") ) {
 		System.out.println("-Stop codon encountered, skipping.");
@@ -83,11 +91,12 @@ public class Gene {
     }
      
 
-    private void addCodon(String key) {
+    public void addCodon(String key) {
 	if (key.length() != 3) {
 	    System.out.println("----Wrong Codon length!");
 	    return;
 	} else {
+	    total++;
 	    if (sequence.get(key)==null) 
 		sequence.put(key, 1);
 	    else
@@ -95,8 +104,7 @@ public class Gene {
 	}
     }
 
-
-    private void calcPercs() { // Populates the 'percents' parameter.
+    public void calcPercs() { // Populates the 'percents' parameter.
 	for (Map.Entry<String, Integer> entry : sequence.entrySet()) {
 	    String n = entry.getKey();
 	    Integer i = entry.getValue();
@@ -134,11 +142,11 @@ public class Gene {
 	System.out.println("Total triplets: "+sequence.size());
 	writer.close();
 	} catch (FileNotFoundException e) {
-	    e.printStackTrace();
 	    System.out.println("---storeTripletsStats FAIL");
+	    e.printStackTrace();
 	} catch (UnsupportedEncodingException e) {
-	    e.printStackTrace();
 	    System.out.println("---storeTripletsStats FAIL");
+	    e.printStackTrace();
 	}
     }
 }

@@ -30,7 +30,6 @@ public class Reader {
 	this(); // Allocation
 	try (BufferedReader br = new BufferedReader(new FileReader("./Data/"+filename))) {
 		String sCurrentLine;
-		String tmp_body="";
 		lang = br.readLine(); // Stock 'language' - lol...
 		while ((sCurrentLine = br.readLine()) != null) { // Reading file line by line
 		    char[] chr = sCurrentLine.toCharArray();
@@ -56,7 +55,7 @@ public class Reader {
 		    }
 		}
 		percOf=percCalc(letterOccurences);
-		System.out.println("Adding gene");
+		System.out.println("\nAdding gene");
 		g = analyseFile(filename);
 		System.out.println("Added new gene");
 	    } catch (IOException e) {
@@ -65,18 +64,25 @@ public class Reader {
 	}
     }
     
+    // This is practically a Gene constructor but from a file
     private Gene analyseFile(String filename) {
 	try (BufferedReader br = new BufferedReader(new FileReader("./Data/"+filename))) {
+		if (g==null) g=new Gene();
 		String sCurrentLine="";;
 		String tmp_body="";
 		String crp="";
 		String lan = br.readLine(); // Stock 'language' - lol...
-		System.out.println("Reading file... (this may take a moment. No, really");
+		System.out.println("Reading file... (this may take a moment. No, really)");
 		while ((sCurrentLine = br.readLine()) != null) { // Reading file line by line
 		    crp+=sCurrentLine;
+		    while (crp.length() > 3) {
+			String currcodon = crp.substring(0,3);
+			g.addCodon(currcodon);
+			crp = crp.substring(3);
+			//g.addToBody(currcodon);
+		    }
 		}
-		System.out.println("File read, analysing...");
-		g = new Gene(lan, crp);
+		g.calcPercs();
 		g.storeTripletsStats(filename);
 		return g;
 	    } catch (IOException e) {
@@ -180,6 +186,7 @@ public class Reader {
 	    double pourc= percOf[i];
 	    System.out.println(currChar + "\t#"+curr+"\t" + (pourc*100) + "%");
 	}
-	System.out.println("Total:\t"+totalLetters+" for "+lang+"\n");
+	System.out.println("Total:\t"+totalLetters+" for "+lang+"\n\n");
+	this.g.printTriplets();
     }
 }
