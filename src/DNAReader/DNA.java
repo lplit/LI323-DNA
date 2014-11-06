@@ -24,7 +24,7 @@ public class DNA {
 
 	GeneReader gr3 = new GeneReader("NC_019896_genes.fna");
 
-	System.out.println("NC_018520_genes.fna");
+	System.out.println("\n\nNC_018520_genes.fna");
 	gr.getBestGeneFile("test_genome.fna");
 
 	System.out.println("\n\nNC_017626_genes.fna");

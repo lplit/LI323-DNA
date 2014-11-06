@@ -15,7 +15,7 @@ public class Guesser {
     }
 
     public void guessGenome() {
-	double scoreHigh=-99999;
+	double scoreHigh=-9999999;
 	String langHigh = "";
 	for (Reader a : r) {
 	    String lang = a.getLang();

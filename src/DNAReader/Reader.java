@@ -55,9 +55,7 @@ public class Reader {
 		    }
 		}
 		percOf=percCalc(letterOccurences);
-		System.out.println("\nAdding gene");
 		g = analyseFile(filename);
-		System.out.println("Added new gene");
 	    } catch (IOException e) {
 	    System.out.println("File read error!\n");
 	    e.printStackTrace();
@@ -67,11 +65,10 @@ public class Reader {
     // This is practically a Gene constructor but from a file
     private Gene analyseFile(String filename) {
 	try (BufferedReader br = new BufferedReader(new FileReader("./Data/"+filename))) {
-		if (g==null) g=new Gene();
 		String sCurrentLine="";;
 		String crp="";
 		String lan = br.readLine(); // Stock 'language' - lol...
-		System.out.println("Reading file... (this may take a moment. No, really)");
+		if (g==null) g=new Gene(lan);
 		while ((sCurrentLine = br.readLine()) != null) { // Reading file line by line
 		    crp+=sCurrentLine;
 		    while (crp.length() > 3) {
@@ -88,11 +85,9 @@ public class Reader {
 	    System.out.println("File read error!\n");
 	    e.printStackTrace();
 	} finally {
-	    System.out.println("Done!");
 	    return g;
 	}
     }
-
 
     /**
      * Used in constructor to create percOf
@@ -178,6 +173,8 @@ public class Reader {
      * Calculates number of occurences for each letter, prints it, as well as % of total
      */
     public void printLettersStats() {
+	System.out.println("Total:\t"+totalLetters+" for "+lang);
+
 	for (int i=0 ; i< letterOccurences.length ; i++) {
 	    // Simplicity handles
 	    int curr = letterOccurences[i];
@@ -185,7 +182,8 @@ public class Reader {
 	    double pourc= percOf[i];
 	    System.out.println(currChar + "\t#"+curr+"\t" + (pourc*100) + "%");
 	}
-	System.out.println("Total:\t"+totalLetters+" for "+lang+"\n\n");
 	System.out.println(this.g);
+	System.out.println();
+
     }
 }

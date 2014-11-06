@@ -22,6 +22,11 @@ public class Gene {
 	total=0;
     }
 
+    public Gene(String n) {
+	this();
+	name=n;
+    }
+
     public Gene(String n, String body) {
 	name=n;
 	total=0;
@@ -53,10 +58,6 @@ public class Gene {
 	return percents;
     }
 
-    public HashMap<String, Integer> getCodons() {
-	return sequence;
-    }
-
     public double getLogSum(String s) {
 	if (s.length()<3) {
 	    System.out.println("----[getLogSum] Wrong length!\n");
@@ -68,15 +69,12 @@ public class Gene {
 	    while (cpy.length()>=3) {
 		tmp = cpy.substring(0,3);
 		double current = 0.0;
-		//System.out.println("Current 3plet "+tmp);
 		if (percents.get(tmp) == null) {
-		    //System.out.println(tmp+" not available!");
 		    cpy = cpy.substring(3);
 		    continue;
 		}
 		current = percents.get(tmp);
 		ret += Math.log(current);
-		//System.out.println("Current = "+current +" ret = "+ret);
 		cpy = cpy.substring(3);
 	    }
 	    return ret;
@@ -112,7 +110,7 @@ public class Gene {
 	    String key = entry.getKey().toString();
 	    Integer value = entry.getValue();
 	    Double perc = percents.get(key);
-	    ret+=("---"+key + "\t" + value + "\t"+perc+"\n");
+	    ret+=("-"+key + "\t" + value + "\t"+perc+"\n");
 	}
 	ret+=("Total triplets: "+sequence.size());
 	return ret;
@@ -129,7 +127,6 @@ public class Gene {
 	    Double perc = percents.get(key);
 	    writer.println(key +" "+value+" "+perc);
 	}
-	System.out.println("Total triplets: "+sequence.size());
 	writer.close();
 	} catch (FileNotFoundException e) {
 	    System.out.println("---storeTripletsStats FAIL");
