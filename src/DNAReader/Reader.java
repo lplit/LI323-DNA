@@ -61,6 +61,41 @@ public class Reader {
 	    e.printStackTrace();
 	}
     }
+
+    public double getLogSum(String s) {
+	return g.getLogSum(s);
+    }
+
+    public double getBestGeneFile(String filename) { 
+	double ret = 0.;
+	try {
+	    BufferedReader br = new BufferedReader(new FileReader("./Data/"+filename));
+	    String sCurrentLine = br.readLine();
+	    while (sCurrentLine != null) { // Read file till EOF
+		char[] chr = sCurrentLine.toCharArray();
+		if ( chr[0] =='>' ) { // Name line
+		    String tmp_name = sCurrentLine;
+		    String tmp_body = "";
+		    sCurrentLine = br.readLine(); // Obligatory body line
+		    char[] chr2 = sCurrentLine.toCharArray();
+		    while ((chr2[0] != '>') && ((sCurrentLine = br.readLine()) != null)) { // Get full body
+			tmp_body+=sCurrentLine;
+			chr2 = sCurrentLine.toCharArray();
+		    }
+		    ret= g.getLogSum(tmp_body);
+		    System.out.println("["+lang+"] Test case: "+tmp_name+ " score: "+ret);
+		} else
+		    sCurrentLine=br.readLine();
+	    }
+	} catch (IOException e) {
+	    System.out.println("File read error!\n");
+	    e.printStackTrace();
+	} finally {
+	    if (ret == 0.) 
+		System.out.println("[Reader$getBestGeneFile]Something went wrong!");
+	    return ret;
+	}
+    }
     
     // This is practically a Gene constructor but from a file
     private Gene analyseFile(String filename) {

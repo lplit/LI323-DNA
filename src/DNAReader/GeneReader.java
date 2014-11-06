@@ -59,7 +59,6 @@ public class GeneReader {
 		    }
 		    System.out.println("Test case: "+tmp_name);
 		    Gene g = getBestGene(tmp_body);
-
 		} else 
 		    sCurrentLine=br.readLine();
 	    }
