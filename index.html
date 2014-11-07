@@ -34,40 +34,54 @@
         <h3>
 
 
-2.1.1 Nous avons ici effectuÈ un calcul simple afin d'avoir un modele pour chaque gÈnome : nombre d'occurences de la lettre donnÈ ( A C G ou T ici ) / nombre de lettre total
-
-2.1.2 Nous avons rÈutiliser notre fonction afin de detecter le language d'un mot ici mais pour un segment adn via la somme des logs des differentes probas a laquelle nous prennons le meilleur score.
-( a vÈrif )
-
-
-2.1.3 On pourrait essayer de construire un modele de genomes basÈs sur des binomes de lettres ,
-voir des trinomes ( ce qui sera effectuÈ plus bas ) afin d'obtenir plus de spÈcification.
-Nous pouvons aussi essayer de prendre des tailles tres diffÈrentes de gÈnomes afin d'obtenir des
-modeles bien diffÈrents. On peut Ègalement essayer de considÈrer que la proba qu'a une lettre de tomber deux fois de suite par exemple
-dans le modele de gÈnome ne sera pas la meme que la proba qu'on les autres lettres de tomber.
-
-
-
-2.2.1 Nous avons ici pris tout les modeles possibles pour des codons ( exceptÈ les codons stop ) que nous avons stockÈs dans un tableau de hashage
-Enfin nous avons comptÈ par groupe de 3 lettres ces diffÈrentes sÈquences de genes en passant a la suivant si jamais un codon stop Ètait rencontrÈ.
-Puis nous avons effectuÈ le meme calcul que prÈcedamment : nombre d'occurences du codon(1 sur les 61 possibles ) / nombre de codons totaux comptÈs.
-
-2.2.2
-Nous allons ici rÈutiliser ce que nous avons vu au premier projet.
-Il nous faut ici effectuer la somme des logs sur la sÈquence donnÈ sachant le gene ( ici une ligne dans le fichier FASTA sur les genes )
-ainsi que sur la sÈquencÈ donnÈ mais sachant le gÈnome , c'est a dire en utilisant le modele de la premiere question auparavant sur l'intÈgralitÈ du fichier de genes.
-Enfin nous divisons le tout afin d'obtenir un score.
-Nous effectuons cela 3 fois : en effet au cas ou le nombres de lettres de la sÈquence donnÈ ne serait pas un multiple de trois , il nous faut effectuer ce calcul sur la meme sÈquence mais 
-dÈcalÈ de un caractere et de deux caractere
-Nous prendrons le meilleur score entres les meilleurs scores dÈja obtenus sur chaque calcul individuellement.
-
-2.2.3 liÈ a la 2.2.2
-
-2.2.4 dafuq ?
-
-2.2.5 dafuq ?
-
-
+L'objectif de ce projet était de pouvoir mettre au point des éléments qui permetterai de faciliter la lecture d'une séquence génomique par le biais
+d'outils d'analyse statistique ainsi que de permettre l'annotation automatique de ceux-ci.
+ 
+Nous avons dans un premier temps effectué un modèle de détection de gènes qui nous permet d'effectuer la prédiction de l'appartenance d'une séquence a un génome.
+ 
+Par la suite , nous avons réduit le modèle de détection , afin de chercher l'appartenance ou non d'une séquence donné a un gène d'un génome. Et donc pouvoir effectuer cette annotation.
+ 
+2.1.1)  Appliquer le modèle de langue vu pour le projet 1 pour estimer un modèle à partir d’un génome
+        donné. Ici, chaque organisme a en quelque sorte son génome écrit dans une "langue" spécifique. Ecrire
+        la fonction correspondante d’estimation à partir d’un fichier FASTA
+ 
+        Nous avons ici effectué un calcul simple afin d'avoir un modèle pour chaque génome : nombre d'occurences de la lettre donné ( A C G ou T ici ) / nombre de lettres total
+ 
+2.1.2)  Adapter la méthode du projet 1 qui permette de prédire que quelle espèce un segment d’ADN donné
+        vient à partir de différent modèles de génomes.
+ 
+        Nous avons réutilisé notre fonction de détection de language d'un mot du premier projet ici mais , pour un segment adn via la somme des logarithmes des differentes probabilités a laquelle nous prennons le meilleur score.
+ 
+2.1.3)  Adapter la méthode du projet 1 qui permette de prédire que quelle espèce un segment d’ADN donné
+        vient à partir de différent modèles de génomes.
+ 
+        On pourrait essayer de construire un modèle de génomes basés sur des binomes de lettres,
+        voir des trinomes ( ce qui sera effectué plus bas ) afin d'obtenir plus de spécification.
+        Nous pouvons aussi essayer de prendre des tailles très différentes de génomes afin d'obtenir des
+        modèles bien différents. Enfin ,il est possible d'essayer de considérer que la probabilité qu'a une lettre de tomber deux fois de suite par exemple
+        dans le modèle de génome ne sera pas la même que la probabilité qu'on les autres lettres de tomber.
+ 
+ 
+ 
+2.2.1)  Ecrire une fonction qui, à partir de plusieurs séquences de gènes, estime le modèle d’apparition de
+        codons.
+ 
+ 
+        Nous avons ici pris tout les modèles possibles pour des codons ( excepté les codons stop , c'est a dire 61 modèles différents ) que nous avons stockés dans un tableau de hashage.
+        Enfin nous avons compté par groupe de 3 lettres ces différentes séquences de genes en passant a la suivante si jamais un codon stop était rencontré.
+        Puis nous avons effectué le meme calcul que précedemment : nombre d'occurences du codon( 1 sur les 61 possibles ) / nombre de codons totaux comptés.
+ 
+Q)      Ecrire une fonction qui calcule la probabilité d’une séquence d’être un généré par le modèle de gène
+ 
+ 
+        Nous allons ici réutiliser ce que nous avons vu au premier projet.
+        Il nous faut ici éffectuer la somme des logs sur la séquence donné sachant le gène ( ici une ligne dans le fichier FASTA sur les genes ).
+        Nous obtenons un score pour chaque gène et prenons le score maximal de cette opération.
+        Il faut le faire également sur la séquence donné mais sachant le génome , c'est a dire en utilisant le modèle de la premiere partie ou bien sur l'intégralité du fichier de séquence de genes.
+        Enfin nous divisons les deux résultats obtenus afin d'obtenir un score.
+        Nous effectuons cela 3 fois : en effet au cas ou le nombres de lettres de la séquence donné ne serait pas un multiple de trois , il nous faut éffectuer ce calcul sur la meme séquence mais
+        décalé de un caractère et de deux caractère
+        Nous prendrons le meilleur score entre les résultats déja obtenus sur chacun des calculs de chaque décalage.
 
 <a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
 
