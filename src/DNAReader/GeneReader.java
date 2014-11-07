@@ -19,6 +19,7 @@ import java.util.Map;
 public class GeneReader {
 
     ArrayList<Gene> genes;
+
     /**
      * Constructor method
      */
@@ -61,10 +62,12 @@ public class GeneReader {
      *
      *
      */
-    public void getBestGeneFile(String filename) {
+    public double getBestGeneFile(String filename, int offset) {
+	double score = -9999999.;
 	try {
 	    BufferedReader br = new BufferedReader(new FileReader("./Data/"+filename));
 	    String sCurrentLine = br.readLine();
+	    sCurrentLine = sCurrentLine.substring(offset);
 	    while (sCurrentLine != null) { // Read file till EOF
 		char[] chr = sCurrentLine.toCharArray();
 		if ( chr[0] =='>' ) { // Name line
@@ -77,30 +80,33 @@ public class GeneReader {
 			chr2 = sCurrentLine.toCharArray();
 		    }
 		    System.out.println("Test case: "+tmp_name);
-		    Gene g = getBestGene(tmp_body);
+		    double tmp = getBestGene(tmp_body);
+		    if (tmp>score) score=tmp;
 		} else 
 		    sCurrentLine=br.readLine();
 	    }
 	} catch (IOException e) {
 	    System.out.println("File read error!\n");
 	    e.printStackTrace();
-	}
+	} finally {
+	    return score;
+	}	
     }
     
-    public Gene getBestGene(String s) {
-	double best=0.;
+    public double getBestGene(String s) {
+	double best=-999999.;
 	String bestName="";
 	Gene bg=null;
 	for (Gene g : genes) {
 	    double tmp = g.getLogSum(s);
-	    if (tmp < best) {
+	    if (tmp > best) {
 		best = tmp;
 		bg = g;
 		bestName= g.getName();
 	    }
 	}
 	System.out.println("Best score ("+best+"):\t" + bestName+"\n");
-	return bg;
+	return best;
     }
     
     public String toString() {
@@ -116,5 +122,13 @@ public class GeneReader {
 	    System.out.println(g);
 	    System.out.println("\n");
 	}
+    }
+    
+    public String getNames() { 
+	String s="";
+	for (Gene g : genes) {
+	    s+=g.getName()+" ";
+	}
+	return s;
     }
 }

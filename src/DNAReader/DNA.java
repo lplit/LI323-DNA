@@ -5,47 +5,104 @@ package DNAReader;
  */
 public class DNA {
 
+    final static int nbTests=3;
+
     public static void main(String[] args) {
 
 	String[] tester = {"AGCAGGACGCGCGGCGCGTGGCGGCGGCCAACATCATGAGCGATGTTGAGCTGGTGCGGGATCAGGCTGGTACGCTGACCGCGCAGGCCGCTGTACGGCATACGGAACTGTTCGCTGGAATACTTACGCGCGCGATAACG", "GGGTTGTAAGCATCGTGCTGAGCTTCGGCATAACGCTCATCATCAAACAGCGCAAAGCGCAGGTTGAAACGGCGCAGCATTTCTACCAGCCACTGATGCTGTAAGGTTTCCGGGACGATAATCAGCACACGTTCAGCAGCGCCAGAGAGCAGTTGCTGATGAAGGATCATCCCGGCTTCAATGGTTTTCCCTAAACCCACTTCGTCAGCCAGCAGGACGCGCGGCGCGTGGCGGCGGCCAACATCATGAGCGATGTTGAGCTGGTGCGGGATCAGGCTGGTACGCTGACCGCGCAGGCCGCTGTACGGCATACGGAACTGTTCGCTGGAATACTTACGCGCGCGATAACG", "GTCGCGGTCAGCAGCAGAACGCCCGGCACGTGCTCTGCCAGTTGTTCAATGGCCTGATATTCACGGCTTGGCGCATCTTCGCTCCACACCAGGTGATGGGCTTCATCGACCACCAGCAGGTCCCATTCGGCTTCACAGAGATGTTCCAGCCGCTGTTTGCTACGACGGGCAAAATCCAGCGAGCAAATCACCAGCTGTTCGGTGTCGAACGGGTTGTAAGCATCGTGCTGAGCTTCGGCATAACGCTCATCATCAAACAGCGCAAAGCGCAGGTTGAAACGGCGCAGCATTTCTACCAGCCACTGATGCTGTAAGGTTTCCGGGACGATAATCAGCACACGTTCAGCAGCGCCAGAGAGCAGTTGCTGATGAAGGATCATCCCGGCTTCAATGGTTTTCCCTAAACCCACTTCGTCAGCCAGCAGGACGCGCGGCGCGTGGCGGCGGCCAACATCATGAGCGATGTTGAGCTGGTGCGGGATCAGGCTGGTACGCTGACCGCGCAGGCCGCTGTACGGCATACGGAACTGTTCGCTGGAATACTTACGCGCGCGATAACG", "GTTGAAGTGAAAGTCATCAACGTTGAAAAAGACGGGAAAATTGGTTTATCTATTAAAAAAGCTAAAGACCGTCCGCAAGCCAGACCTAGAAATGATTTCCGTCCGAAAGAATCTTTTGAACAGAAAATGAATAAGTTTTT", "TAAGCAAACGATCTTTTTATAAGCCTAAGGAGGAGCACTTTTTTTATGTCGATTGAAGTTGGCAGCAAGTTGCAAGGGAAAATTACAGGTATTACAAATTTTGGAGCATTTGTTGAATTGCCTGGAGGCTCAACCGGTCTCGTTCACATTAGTGAGGTAGCTGATAATTATGTCAAAGACATTAACGACCACTTAAAAGTCGGCGACCAAGTTGAAGTGAAAGTCATCAACGTTGAAAAAGACGGGAAAATTGGTTTATCTATTAAAAAAGCTAAAGACCGTCCGCAAGCCAGACCTAGAAATGATTTCCGTCCGAAAGAATCTTTTGAACAGAAAATGAATAAGTTTTT", "AAAGAAAGAACAGCTTGAAAAAGAACTGAAAAGTTTAAAGACAAAACAAACGGATTTAAAAGAAGAAATATCCAAATTGAAGGATGAGGATTACGTCACAGAGCTTGCCAGAAGGGACTTATTCATGTCTGGAGACGGAGAAATTATCTTCAATGTGGAGAAGAAGAGCAAGTAGCCTTGTTGACACTTAAATTTTTATTTAGGTATAATTAAGCAAACGATCTTTTTATAAGCCTAAGGAGGAGCACTTTTTTTATGTCGATTGAAGTTGGCAGCAAGTTGCAAGGGAAAATTACAGGTATTACAAATTTTGGAGCATTTGTTGAATTGCCTGGAGGCTCAACCGGTCTCGTTCACATTAGTGAGGTAGCTGATAATTATGTCAAAGACATTAACGACCACTTAAAAGTCGGCGACCAAGTTGAAGTGAAAGTCATCAACGTTGAAAAAGACGGGAAAATTGGTTTATCTATTAAAAAAGCTAAAGACCGTCCGCAAGCCAGACCTAGAAATGATTTCCGTCCGAAAGAATCTTTTGAACAGAAAATGAATAAGTTTTT", "TGCCGCCGTGGGCTTGTTCAAACAGGCCGGGCTGGTCGACAGCGCCGGTAAACGCGCCTTTTTTCGTTCCGAACAAGATGCTTTCCACAAGGCTGTCTGGCAGTGCCGCACAGTTTTGCGAAATAAACGGGCCGCCAGAA", "TGACGACACTCAGCCTGTAATACAAGTCCTTCCGCATTCGTTCGCCTGCAATTGCATCAATTGGGTCTTCATTCATCGTGGCAATAATACGTACGTCAATCGGTGTATCCTTTGTCGAACCGATGCGCCTGATTTTCCGTTCTTGAAGGGCGCGCAGCAGCTTCGCCTGAAGGCTGAGATTCAGCGAGTTGATTTCATCTAACAGCAGCGTGCCGCCGTGGGCTTGTTCAAACAGGCCGGGCTGGTCGACAGCGCCGGTAAACGCGCCTTTTTTCGTTCCGAACAAGATGCTTTCCACAAGGCTGTCTGGCAGTGCCGCACAGTTTTGCGAAATAAACGGGCCGCCAGAA", "GCTCGTCCGTCATGAAATTCATTGCGCCTTCGATCATATGCTCAAGCTCGCGAATATTTCCCGGCCAGTCATAAGAAAGGAAAAATTGCTTCACGTCATCGCTGATGTGTTCAACATTCATTTGGAATAGATGATTGTTTTTCTGGATGAACTCCGACGCGAGAAGCAAAATGTCTTCTTTTCGTTCCCGAAGCGGCGGGATGATCAGTGTGACGACACTCAGCCTGTAATACAAGTCCTTCCGCATTCGTTCGCCTGCAATTGCATCAATTGGGTCTTCATTCATCGTGGCAATAATACGTACGTCAATCGGTGTATCCTTTGTCGAACCGATGCGCCTGATTTTCCGTTCTTGAAGGGCGCGCAGCAGCTTCGCCTGAAGGCTGAGATTCAGCGAGTTGATTTCATCTAACAGCAGCGTGCCGCCGTGGGCTTGTTCAAACAGGCCGGGCTGGTCGACAGCGCCGGTAAACGCGCCTTTTTTCGTTCCGAACAAGATGCTTTCCACAAGGCTGTCTGGCAGTGCCGCACAGTTTTGCGAAATAAACGGGCCGCCAGAA"};
+	
+	double[] results_17=new double[nbTests];
+	double[] results_18=new double[nbTests];
+	double[] results_19=new double[nbTests];
+	for (int j = 0 ; j<nbTests ; j++) {
+	    System.out.println("************************************************\n"+
+			       "OFFSET: "+j+"\n"+
+			       "************************************************\n");
+	    
+	    
+	    /** Extraits */
+	    GeneReader gr1 = new GeneReader("NC_017626_genes.fna");
+	    System.out.println("\n\nNC_017626_genes.fna");
+	    double bestgr1 = gr1.getBestGeneFile("test_17626.fna", j);
 
+	    GeneReader gr2 = new GeneReader("NC_018520_genes.fna");
+	    System.out.println("\n\nNC_018520_genes.fna");
+	    double bestgr2 = gr2.getBestGeneFile("test_18520.fna", j);
+
+	    GeneReader gr3 = new GeneReader("NC_019896_genes.fna");
+	    System.out.println("\n\nNC_019896_genes.fna");
+	    double bestgr3 = gr3.getBestGeneFile("test_19896.fna", j);
 
 	
-	/** Extraits */
-	GeneReader gr = new GeneReader("NC_018520_genes.fna");
-	System.out.println("\n\nNC_018520_genes.fna");
-	gr.getBestGeneFile("test_genome.fna");
+	    /** Whole files */
+	    Reader r1 = new Reader("NC_017626.fna");
+	    // r1.printLettersStats();
 
-	GeneReader gr2 = new GeneReader("NC_017626_genes.fna");
-	System.out.println("\n\nNC_017626_genes.fna");
-	gr2.getBestGeneFile("test_genome.fna");
+	    Reader r2 = new Reader("NC_018520.fna");
+	    // r2.printLettersStats();
 
-	GeneReader gr3 = new GeneReader("NC_019896_genes.fna");
-	System.out.println("\n\nNC_019896_genes.fna");
-	gr3.getBestGeneFile("test_genome.fna");
+	    Reader r3 = new Reader("NC_019896.fna");
+	    // r3.printLettersStats();
 	
+	    double bestr1 = r1.getBestGeneFile("test_17626.fna", j);
+	    System.out.println();
+	    double bestr2 = r2.getBestGeneFile("test_18520.fna", j);
+	    System.out.println();
+	    double bestr3 = r3.getBestGeneFile("test_19896.fna", j);
 	
-	/** Whole files */
-	Reader r1 = new Reader("NC_017626.fna");
-	r1.printLettersStats();
-
-	Reader r2 = new Reader("NC_018520.fna");
-	r2.printLettersStats();
-
-	Reader r3 = new Reader("NC_019896.fna");
-	r3.printLettersStats();
+	    System.out.println("\nr1: "+r1.getLang());
+	    System.out.println("r2: "+r2.getLang());
+	    System.out.println("r3: "+r3.getLang());
 	
-	/** put this inside a loop that goes through test names and gets corresponding reader */
-	double r1d = r1.getBestGeneFile("test_17626.fna");
-	System.out.println();
-	double r2d = r2.getBestGeneFile("test_18520.fna");
-	System.out.println();
-	double r3d = r3.getBestGeneFile("test_19896.fna");
+	    System.out.println("\ngr1: NC_017626_genes.fna");
+	    System.out.println("gr2: NC_018520_genes.fna");
+	    System.out.println("gr3: NC_019896_genes.fna");
+	
+	    System.out.println("\ngr1: "+bestgr1+" gr2: "+bestgr2+" gr3: "+bestgr3);
+	    System.out.println("r1: "+bestr1+" r2: "+bestr2+" r3: "+bestr3);
+	
+	    Double[] languages = {bestr1, bestr2, bestr3};
+	    Double[] bits = {bestgr1, bestgr2, bestgr3};
+	    Double[] divs = new Double[languages.length];
 
-	System.out.println("r1: "+r1d+" r2: "+r2d+" r3: "+r3d);
-	Reader[] readers = {r1, r2, r3}; // Languages - 17-18-19
-
+	    for (int i = 0 ; i < languages.length ; i++) {
+		divs[i]=bits[i]/languages[i];
+		System.out.println("gr[i]/r[i] i: "+i+" "+divs[i]);
+		switch (i) {
+		case 0:
+		    results_17[j]=divs[i];
+		    break;
+		case 1: 
+		    results_18[j]=divs[i];
+		    break;
+		case 2:
+		    results_19[j]=divs[i];
+		    break;
+		}
+	    }
+	    
+	    System.out.println("************************************************\n"+
+			       "END OF TEST FOR OFFSET: "+j+"\n"+
+			       "************************************************\n");
+	
+	}
+	
+	System.out.println("Max 17: "+ getMaxArray(results_17));
+	System.out.println("Max 18: "+ getMaxArray(results_18));
+	System.out.println("Max 19: "+ getMaxArray(results_19));
+	
 	return;
     }
-
+    
+    public static double getMaxArray(double[] arr) {
+	if (arr.length == 0) {
+	    System.out.println("[DNA$getMaxArray]Empty array!");
+	    return 0;
+	}
+	double ret = arr[0];
+	for (double d : arr) {
+	    if (ret < d) ret=d;
+	}
+	return ret;
+    }
 }

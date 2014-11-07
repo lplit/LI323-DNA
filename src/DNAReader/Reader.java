@@ -73,11 +73,12 @@ public class Reader {
 	return g.getLogSum(s);
     }
 
-    public double getBestGeneFile(String filename) { 
+    public double getBestGeneFile(String filename, int offset) { 
 	double ret = -999999.;
 	try {
 	    BufferedReader br = new BufferedReader(new FileReader("./Data/"+filename));
 	    String sCurrentLine = br.readLine();
+	    sCurrentLine = sCurrentLine.substring(offset);
 	    while (sCurrentLine != null) { // Read file till EOF
 		char[] chr = sCurrentLine.toCharArray();
 		if ( chr[0] =='>' ) { // Name line
