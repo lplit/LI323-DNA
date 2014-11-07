@@ -19,7 +19,7 @@ public class Gene {
     private int total;
 
     /**
-     * Constructor method
+       Constructors
      */
     public Gene() { 
 	name="";
@@ -28,21 +28,12 @@ public class Gene {
 	total=0;
     }
     
-    /**
-     * Constructor method 
-     * @param n Name
-     */
     public Gene(String n) {
 	this();
 	name=n;
     }
 
 
-    /**
-     * Constructor
-     * @param n name
-     * @param body body
-     */
     public Gene(String n, String body) {
 	name=n;
 	total=0;
@@ -61,6 +52,10 @@ public class Gene {
 	}
 	calcPercs();
     }
+    
+    /**
+       GETTERS
+    */
     
     /**
      * Name field getter

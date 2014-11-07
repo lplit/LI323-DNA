@@ -42,7 +42,7 @@ public class Reader {
 		    char[] chr = sCurrentLine.toCharArray();
 		    for (int i=0 ; i < chr.length ; i++) {
 			switch (chr[i]) {
-			case 'A' : 
+			case 'A' :
 			    letterOccurences[0]++;
 			    break;
 			case 'C' :
@@ -51,12 +51,12 @@ public class Reader {
 			case 'G' :
 			    letterOccurences[2]++;
 			    break;
-			case 'T' : 
+			case 'T' :
 			    letterOccurences[3]++;
 			    break;
-			default : 
+			default :
 			    letterOccurences[4]++;
-			    break; 
+			    break;
 			}
 			totalLetters++;
 		    }
@@ -68,11 +68,49 @@ public class Reader {
 	    e.printStackTrace();
 	}
     }
-
+    
     public double getLogSum(String s) {
 	return g.getLogSum(s);
     }
 
+    public void analyseByXChar(int step, String filename, double val) {
+	try {
+	    BufferedReader br = new BufferedReader(new FileReader("./Data/"+filename));
+	    PrintWriter writer = new PrintWriter("./Data/analysisBy_"+step+"_"+filename, "UTF-8");
+	    double ret = 0;
+	    int found=0;
+	    String 
+		sCurrentLine="",
+		crp="",
+		lan = br.readLine(); // Stock 'language' - lol...
+	    while ((sCurrentLine = br.readLine()) != null) { // Reading file line by line
+		while ((crp.length() < step)) { //&& ((sCurrentLine = br.readLine()) != null)) {
+		    crp+=sCurrentLine;
+		    sCurrentLine=br.readLine();
+		}
+		String tmp = crp.substring(0,step);
+		ret = g.getLogSum(tmp);
+		if (ret < val) {
+		    writer.println(tmp+" possible gene "+ ret);
+		    found++;
+		} else
+		    writer.println(tmp+" unlikely gene "+ ret);
+		crp=crp.substring(step);
+		System.out.println("Found possible genes for "+filename+": "+found);
+	    }
+	    writer.close();
+	} catch (FileNotFoundException e) {
+	    System.out.println("---storeTripletsStats FAIL");
+	    e.printStackTrace();
+	} catch (UnsupportedEncodingException e) {
+	    System.out.println("---storeTripletsStats FAIL");
+	    e.printStackTrace();
+	} catch (IOException e) {
+	    System.out.println("---storeTripletsStats FAIL");
+	    e.printStackTrace();
+	}
+    }
+    
     public double getBestGeneFile(String filename, int offset) { 
 	double ret = -999999.;
 	try {
