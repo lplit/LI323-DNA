@@ -43,41 +43,45 @@ d'outils d'analyse statistique ainsi que de permettre l'annotation automatique d
 Nous avons dans un premier temps effectué un modèle de détection de gènes qui nous permet d'effectuer la prédiction de l'appartenance d'une séquence a un génome.
  
 Par la suite , nous avons réduit le modèle de détection , afin de chercher l'appartenance ou non d'une séquence donné a un gène d'un génome. Et donc pouvoir effectuer cette annotation.</p>
- 
-<h3><a name="q1" class="anchor" href="#q1"><span class="octicon octicon-link"></span></a><p>
+
+<p>
 2.1.1)  Appliquer le modèle de langue vu pour le projet 1 pour estimer un modèle à partir d’un génome
         donné. Ici, chaque organisme a en quelque sorte son génome écrit dans une "langue" spécifique. Ecrire
-        la fonction correspondante d’estimation à partir d’un fichier FASTA</h3></p>
- <p>
+        la fonction correspondante d’estimation à partir d’un fichier FASTA
+
         Nous avons ici effectué un calcul simple afin d'avoir un modèle pour chaque génome : nombre d'occurences de la lettre donné ( A C G ou T ici ) / nombre de lettres total
- </p>
+</p>
+<p>
 2.1.2)  Adapter la méthode du projet 1 qui permette de prédire que quelle espèce un segment d’ADN donné
         vient à partir de différent modèles de génomes.
- 
+ </p>
+<p>
         Nous avons réutilisé notre fonction de détection de language d'un mot du premier projet ici mais , pour un segment adn via la somme des logarithmes des differentes probabilités a laquelle nous prennons le meilleur score.
- 
+</p>
+<p> 
 2.1.3)  Adapter la méthode du projet 1 qui permette de prédire que quelle espèce un segment d’ADN donné
         vient à partir de différent modèles de génomes.
- 
+ </p>
+<p>
         On pourrait essayer de construire un modèle de génomes basés sur des binomes de lettres,
         voir des trinomes ( ce qui sera effectué plus bas ) afin d'obtenir plus de spécification.
         Nous pouvons aussi essayer de prendre des tailles très différentes de génomes afin d'obtenir des
         modèles bien différents. Enfin ,il est possible d'essayer de considérer que la probabilité qu'a une lettre de tomber deux fois de suite par exemple
         dans le modèle de génome ne sera pas la même que la probabilité qu'on les autres lettres de tomber.
- 
- 
- 
+</p>
+<p>  
 2.2.1)  Ecrire une fonction qui, à partir de plusieurs séquences de gènes, estime le modèle d’apparition de
         codons.
- 
- 
+</p>
+<p>
         Nous avons ici pris tout les modèles possibles pour des codons ( excepté les codons stop , c'est a dire 61 modèles différents ) que nous avons stockés dans un tableau de hashage.
         Enfin nous avons compté par groupe de 3 lettres ces différentes séquences de genes en passant a la suivante si jamais un codon stop était rencontré.
         Puis nous avons effectué le meme calcul que précedemment : nombre d'occurences du codon( 1 sur les 61 possibles ) / nombre de codons totaux comptés.
- 
-Q)      Ecrire une fonction qui calcule la probabilité d’une séquence d’être un généré par le modèle de gène
- 
- 
+</p>
+<p>
+2.2.2)  Ecrire une fonction qui calcule la probabilité d’une séquence d’être un généré par le modèle de gène
+ </p>
+<p>
         Nous allons ici réutiliser ce que nous avons vu au premier projet.
         Il nous faut ici éffectuer la somme des logs sur la séquence donné sachant le gène ( ici une ligne dans le fichier FASTA sur les genes ).
         Nous obtenons un score pour chaque gène et prenons le score maximal de cette opération.
@@ -86,35 +90,38 @@ Q)      Ecrire une fonction qui calcule la probabilité d’une séquence d’ê
         Nous effectuons cela 3 fois : en effet au cas ou le nombres de lettres de la séquence donné ne serait pas un multiple de trois , il nous faut éffectuer ce calcul sur la meme séquence mais
         décalé de un caractère et de deux caractère
         Nous prendrons le meilleur score entre les résultats déja obtenus sur chacun des calculs de chaque décalage.
-
 </p>
-
+<p>
+  2.2.3) Ecrire une fonction qui décide si un fragment de séquence est ou non un gène. Attention, comme les codons sont composés de trois lettres, vous devrez à chaque fois tester trois         phases de lecture différentes et négliger les séquences qui pourraient apparaitre après un codon stop.
+</p>
+<p>
+        Nous avons ici pris des fragements des séquences de tests, et nous avons éffectué les mêmes calculs que précédamment dessus.
+	Par la suite nous avons comparé les scores obtenus , et avons décidé de catégoriser en tant que gènes les scores obtenus qui étaient supérieurs aux scores max de la question précédente de chaque fichier.
+</p>
+<p>
+  2.2.4) On veut maintenant annoter les gènes le long du génome. Pour faire cela dans une première phase, on extrait va utiliser une fenêtre d’une certaine longueur (d = 100 nt par exemple), et la classer comme gène ou non gène. Ecrire la fonction correspondante.
+</p>
+<p>
+        Pour ce faire , nous avons découpé par blocs de x caratères les fichiers de génomes , puis nous avons effectué les mêmes calculs que précédamment et pris les mêmes décisions qu'a la question précédente afin de savoir si le i-ème bloc du fichier est un gène ou non.
+</p>
+<p>
+ 2.2.5) Comment se comporte la qualité des résultats en fonction de la longueur de la fenêtre ? Quelle limita- tion voyez vous à cette méthode ? Comment pourrait-on imaginer une méthode plus performante ?
+</p>
+<p>
+       Plus nous prenons des fenêtres de taille élevés , plus les résultats trouvés seront faibles , vu que la précision sur les séquences recherchés augmentera. Dépassé une certaine limite , nous ne pourrons plus déterminer si oui ou non un morceau du génome sera un gène ou non , vu qu'il pourrait faire parti a la fois d'une région non codante , d'un gène et d'un autre gène par exemple.
+</p>
+<p>
+  3.1.1) Ecrire une fonction pour simuler une séquence de longueur donnée x fois.
+  (a) en utilisant un modèle où toutes les lettres ont la même probabilité (équiprobable) 
+  (b) avec un modèle où pA =pT =0.4 et pG =pC =0.1
+</p>
+<p>
 <pre><code>$ cd your_repo_root/repo_name
 $ git fetch origin
 $ git checkout gh-pages
 </code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+</p>
+<p>
       </section>
     </div>
 
