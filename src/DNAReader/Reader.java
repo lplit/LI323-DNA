@@ -1,6 +1,13 @@
 package DNAReader;
 
 import java.io.*;
+
+/** LANGUAGE CLASS 
+ * Corresponding files: 
+ * NC_017626.fna
+ * NC_018520.fna
+ * NC_019896.fna
+ */
 public class Reader {
     
     private final int nbLttrs=5;
@@ -55,7 +62,7 @@ public class Reader {
 		    }
 		}
 		percOf=percCalc(letterOccurences);
-		g = analyseFile(filename);
+		g = analyseFile(filename); // Triplets stats
 	    } catch (IOException e) {
 	    System.out.println("File read error!\n");
 	    e.printStackTrace();
@@ -67,7 +74,7 @@ public class Reader {
     }
 
     public double getBestGeneFile(String filename) { 
-	double ret = 0.;
+	double ret = -999999.;
 	try {
 	    BufferedReader br = new BufferedReader(new FileReader("./Data/"+filename));
 	    String sCurrentLine = br.readLine();
@@ -82,8 +89,9 @@ public class Reader {
 			tmp_body+=sCurrentLine;
 			chr2 = sCurrentLine.toCharArray();
 		    }
-		    ret= g.getLogSum(tmp_body);
-		    System.out.println("["+lang+"] Test case: "+tmp_name+ " score: "+ret);
+		    double tmp=g.getLogSum(tmp_body);
+		    if (tmp>ret) ret=tmp;
+		    System.out.println("["+lang+"] Test case: "+tmp_name+ " score: "+tmp);
 		} else
 		    sCurrentLine=br.readLine();
 	    }

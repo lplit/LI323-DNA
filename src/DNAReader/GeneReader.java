@@ -7,10 +7,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * Reads genes from files and stocks them
+ * Corresponding files: 
+ * NC_018520_genes.fna
+ * NC_017696_genes.fna
+ * NC_019896_genes.fna
+ * Extraits/parts of Reader
+ */
 public class GeneReader {
 
     ArrayList<Gene> genes;
-
+    /**
+     * Constructor method
+     */
     public GeneReader(String file) {
 	try {
 	    genes = new ArrayList<Gene>();
@@ -37,11 +48,19 @@ public class GeneReader {
 	}
     }
     
+
+    /**
+     * Getter
+     */
     public ArrayList<Gene> getGenes() {
 	return genes;
     }
 
-
+    /**
+     * Calculates the gene with highest score from all file
+     *
+     *
+     */
     public void getBestGeneFile(String filename) {
 	try {
 	    BufferedReader br = new BufferedReader(new FileReader("./Data/"+filename));
