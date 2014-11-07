@@ -91,16 +91,25 @@ public class DNA {
 			       "************************************************\n");
 	}
 	
-	System.out.println("Max 017626: "+ getMaxArray(results_17));
-	System.out.println("Max 018520: "+ getMaxArray(results_18));
-	System.out.println("Max 019896: "+ getMaxArray(results_19));
+	double top1 = getMaxArray(results_17);
+	double top2 = getMaxArray(results_18);
+	double top3 = getMaxArray(results_19);
+
+	System.out.println("Max 017626: "+ top1);
+	System.out.println("Max 018520: "+ top2);
+	System.out.println("Max 019896: "+ top3);
 
 	int step = 90;
-	double val = -120;
-	r1.analyseByXChar(step, "NC_017626.fna", val);
-	r2.analyseByXChar(step, "NC_018520.fna", val);
-	r3.analyseByXChar(step, "NC_019896.fna", val);
+	
+	/* MASSIVELY slow */
+	//r1.analyseByXChar(step, "NC_017626.fna", top1, gr1);
+	//r2.analyseByXChar(step, "NC_018520.fna", top2, gr2);
+	//r3.analyseByXChar(step, "NC_019896.fna", top3, gr3);
 
+	/** PARTIE 3 **/
+
+	Simulation s = new Simulation(100, 10000);
+	s.simulate();
 	
 	return;
     }

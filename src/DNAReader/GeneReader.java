@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Collections;
 
 /**
  * Reads genes from files and stocks them
@@ -93,6 +93,14 @@ public class GeneReader {
 	}	
     }
     
+    public double analysebyX(String body) {
+	ArrayList<Double> arr = new ArrayList<Double>();
+	for (Gene g : genes) {
+	    arr.add(g.getLogSum(body));
+	}
+	return Collections.max(arr);
+    }
+
     public double getBestGene(String s) {
 	double best=-999999.;
 	String bestName="";

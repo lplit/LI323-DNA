@@ -73,31 +73,40 @@ public class Reader {
 	return g.getLogSum(s);
     }
 
-    public void analyseByXChar(int step, String filename, double val) {
+    public void analyseByXChar(int step, String filename, double val, GeneReader gr) {
 	try {
 	    BufferedReader br = new BufferedReader(new FileReader("./Data/"+filename));
 	    PrintWriter writer = new PrintWriter("./Data/analysisBy_"+step+"_"+filename, "UTF-8");
 	    double ret = 0;
-	    int found=0;
+	    int found=0,
+		lines=0,
+		cnt=0;
 	    String 
 		sCurrentLine="",
 		crp="",
+		rets="",
 		lan = br.readLine(); // Stock 'language' - lol...
+	   
 	    while ((sCurrentLine = br.readLine()) != null) { // Reading file line by line
 		while ((crp.length() < step)) { //&& ((sCurrentLine = br.readLine()) != null)) {
 		    crp+=sCurrentLine;
 		    sCurrentLine=br.readLine();
 		}
+		lines+=step;
 		String tmp = crp.substring(0,step);
-		ret = g.getLogSum(tmp);
-		if (ret < val) {
-		    writer.println(tmp+" possible gene "+ ret);
+		double nomi = gr.analysebyX(tmp);
+		ret = nomi/g.getLogSum(tmp);
+		if (ret > val) {
+		    cnt++;
+		    rets+=(lines+"-"+(lines+step)+" possible gene "+ ret+"\n");
+		    //writer.println(lines+"-"+(lines+step)+" possible gene "+ ret);
 		    found++;
-		} else
-		    writer.println(tmp+" unlikely gene "+ ret);
+		} /**else
+		writer.println(tmp+" unlikely gene "+ ret);**/
 		crp=crp.substring(step);
-		System.out.println("Found possible genes for "+filename+": "+found);
 	    }
+	    System.out.println("Found possible genes for "+filename+": "+found);
+	    writer.print(rets);
 	    writer.close();
 	} catch (FileNotFoundException e) {
 	    System.out.println("---storeTripletsStats FAIL");
