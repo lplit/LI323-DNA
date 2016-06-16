@@ -43,3 +43,4 @@ Cf méthode randomSeq dans la classe Simulation
 3.1.2) Afin de calculer la probabilité empirique pour des comptages de mots de séquences aléatoires, nous avons parcouru deux par deux les séquences aléatoires crées et nous avons compté le nombres de mots trouvés parmi ceux demandés dans chacune d'entres elles. Si le nombre d'occurence trouvé était plus élevé dans la deuxième séquence que dans la première , nous incrémentons alors un compteur qui a la fin de la méthode nous rend la probabilité empirique.
 
 Voici le diagramme de classe du projet.
+![img](http://lplit.github.io/LI323-DNA/images/diag.png)
